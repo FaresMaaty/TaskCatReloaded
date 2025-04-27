@@ -1,49 +1,34 @@
-﻿namespace Task3
+﻿namespace Project.TaskOfDelegate
 {
+    delegate int Calculator(int number1, int number2);
+    delegate int Summition(int[] arr);
     internal class Program
     {
         static void Main(string[] args)
         {
             //(1)
-            Swap(10, 20);
-            Swap("fares", "maaty");
-            //(2)
-            Dictionary<string, int> student = new Dictionary<string, int>();
-            student.Add("Mohamed", 90);
-            student.Add("fares"  , 85);
-            student.Add("Ali"    , 75);
-            student.Add("Omar"   , 65);
-            student.Add("Mohanad", 50);
-            DisplayGrade(student);
+            Calculator addition = (int number1, int number2) => number1 + number2;
+            Calculator subtraction = (int number1, int number2) => number1 - number2;
+            Calculator multiplication = (int number1, int number2) => number1 * number2;
+
+            Console.WriteLine(addition(2, 3));
+            Console.WriteLine(subtraction(2, 3));
+            Console.WriteLine(multiplication(2, 3));
+
+
+
+
             //(3)
-            Queue<string> customerService = new Queue<string>();
-            customerService.Enqueue("Mohamed");
-            customerService.Enqueue("fares"  );
-            customerService.Enqueue("Ali"    );
-            customerService.Enqueue("Omar"   );
-            customerService.Enqueue("Mohanad");
-            Console.WriteLine("CustomerNames:");
-            while (customerService.Count > 0)
+            Summition sum = delegate (int[] arr)
             {
-                Console.WriteLine(customerService.Dequeue());
-            }
-
-        }
-        static void Swap<T>(T variable1,T variable2)
-        {
-            Console.WriteLine($"Result Before Swap:variable1={variable1} - variable2={variable2}");
-            T swap = variable1;
-            variable1 = variable2;
-            variable2 = swap;
-            Console.WriteLine($"Result After Swap:variable1={variable1} - variable2={variable2}");
-        }
-
-        static void DisplayGrade(Dictionary<string,int> dic)
-        {
-            for(int i = 0; i < dic.Count; i++)
-            {
-                Console.WriteLine($"StudentName:{dic.Keys.ElementAt(i)} => Grade:{dic.Values.ElementAt(i)}");
-            }
+                int sum = 0;
+                foreach (var number in arr)
+                {
+                    sum += number;
+                }
+                return sum;
+            };
+            Console.WriteLine(sum(new int[] { 2, 5, 3, 3, 7 }));
         }
     }
 }
